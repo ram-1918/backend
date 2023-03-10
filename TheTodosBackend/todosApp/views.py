@@ -2,6 +2,10 @@ from django.shortcuts import render
 from .models import TodoLists, TodoTasks
 from .serializers import  ListSerializer, TaskSerializer
 from rest_framework import generics
+from django_filters.rest_framework import DjangoFilterBackend # Filters module
+from rest_framework import filters # Search Filters
+from rest_framework.authentication import BasicAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 # Create your views here.
 
@@ -27,6 +31,12 @@ def test(request):
 class ListCreateTodoList(generics.ListCreateAPIView):
     queryset = TodoLists.objects.all()
     serializer_class = ListSerializer
+    # filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    # filterset_fields = ['name', 'priority', 'deadline', 'favorites']
+    # search_fields = ['^name']# ['=name', '$name', '@name']
+    # ordering_fields = ['name', 'priority', 'deadline']
+    # authentication_classes = [BasicAuthentication]
+    # permission_classes = [IsAuthenticated]
 
 class RetrieveUpdateDestroyTodoList(generics.RetrieveUpdateDestroyAPIView):
     queryset = TodoLists.objects.all()

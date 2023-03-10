@@ -12,10 +12,10 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
-import environ
+# import environ
 
-env = environ.Env()
-environ.Env.read_env()
+# env = environ.Env()
+# environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,7 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-%!t!w1m=h#6mhxf8aj3$lidukg%j43fj58jsplu!b86mo0&vub"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "corsheaders",  # 3rd party package
     "rest_framework",
+    "django_filters",
     "todosApp"
 ]
 
@@ -63,12 +64,12 @@ MIDDLEWARE = [
 
 CORS_ORIGIN_ALLOW_ALL = True 
 # or you can set specific allowed domains
-CORS_ORIGIN_WHITELIST = (
-    'http://localhost:8080',
-    'http://127.0.0.1:8080',
-    'https://task-tracker-514b9.web.app/',
-    'https://task-tracker-514b9.firebaseapp.com/'
-)
+# CORS_ORIGIN_WHITELIST = (
+#     'http://localhost:8080',
+#     'http://127.0.0.1:8080',
+#     'https://task-tracker-514b9.web.app/',
+#     'https://task-tracker-514b9.firebaseapp.com/'
+# )
 
 REST_FRAMEWORK = { 
     'DEFAULT_RENDERER_CLASSES': ( 'rest_framework.renderers.JSONRenderer', ) 
@@ -107,17 +108,26 @@ WSGI_APPLICATION = "TheTodos.wsgi.application"
 
 # ideally on the top
 
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql_psycopg2",
+#         "NAME": "prcjcatalog",
+#         "USER": "postgres",
+#         "PASSWORD": "Prcjproject123",
+#         "HOST": "127.0.0.1",
+#         "PORT": "5434"
+#     }
+# }
+
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "prcjcatalog",
-        "USER": "postgres",
-        "PASSWORD": "Prcjproject123",
-        "HOST": "127.0.0.1",
-        "PORT": "5434"
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'testdb',
+        'USER': 'testuser',
+        'PASSWORD': 'testuser',
+        'HOST': 'localhost',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -154,6 +164,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = "static/"
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
